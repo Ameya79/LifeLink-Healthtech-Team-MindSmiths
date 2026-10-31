@@ -1,5 +1,13 @@
 # LifeLink 🫀 — Intelligent Organ Transplant Matching Platform
 
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/flask-2.x%20%2F%203.x-black.svg?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3.svg?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![Docker](https://img.shields.io/badge/docker-ready-2496ED.svg?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Tests](https://img.shields.io/badge/pytest-passing-success.svg?logo=pytest&logoColor=white)](https://pytest.org/)
+[![AI](https://img.shields.io/badge/Google%20Gemini-2.0%20Flash-4285F4.svg?logo=google&logoColor=white)](https://aistudio.google.com/)
+[![License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
+
 > **Connecting Lives. Saving Lives.** A sophisticated, AI-powered organ transplant matching system that bridges the critical gap between organ donors and transplant patients across hospital networks.
 
 ## Deployed Link (via render): https://lifelink-healthtechteam-mindsmiths.onrender.com/
@@ -292,48 +300,89 @@ Without LifeLink: This patient may never have found this donor.
 
 ## 📦 Installation & Setup
 
-### **Prerequisites**
-- Python 3.8+
-- SQLite3
-- pip package manager
+### **Option 1: Quickstart with Docker Compose (Recommended)**
 
-### **1. Clone Repository**
+Make sure [Docker](https://docs.docker.com/get-docker/) is installed:
+
 ```bash
-git clone https://github.com/yourusername/lifelink.git
-cd lifelink
+# 1. Clone repository
+git clone https://github.com/Ameya79/LifeLink-Healthtech-Team-MindSmiths.git
+cd LifeLink-Healthtech-Team-MindSmiths
+
+# 2. (Optional) Configure environment
+cp .env.example .env
+
+# 3. Start container in detached mode
+docker compose up -d
 ```
 
-### **2. Create Virtual Environment**
+Navigate to:
+👉 **[http://localhost:5000](http://localhost:5000)**
+
+To inspect logs or stop:
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+docker compose logs -f
+docker compose down
 ```
 
-### **3. Install Dependencies**
-```bash
-pip install flask werkzeug requests
-```
+---
 
-### **4. Initialize Database**
-```bash
-python
->>> from database import init_db
->>> init_db()
->>> exit()
-```
+### **Option 2: Local Python Environment**
 
-### **5. Run Application**
+**Prerequisites**: Python 3.10+, SQLite3, pip
+
 ```bash
+# 1. Clone repository
+git clone https://github.com/Ameya79/LifeLink-Healthtech-Team-MindSmiths.git
+cd LifeLink-Healthtech-Team-MindSmiths
+
+# 2. Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Start the application
 python app.py
 ```
 
-Access at: `http://localhost:5000`
+Access at: **`http://localhost:5000`**
 
-### **6. Demo Hospital Credentials**
+---
+
+### **⚙️ Environment Configuration**
+
+| Variable | Description | Default |
+|---|---|---|
+| `PORT` | Application server port | `5000` |
+| `SECRET_KEY` | Flask session secret key | `lifelink_default_secret_key_2024` |
+| `GEMINI_API_KEY` | Optional Google Gemini API key for REM Chatbot | *(Empty - uses pattern matching)* |
+| `GEMINI_MODEL` | Gemini AI model identifier | `models/gemini-2.0-flash-lite` |
+| `LIFELINK_DB` | SQLite database file path | `lifelink.db` |
+
+---
+
+### **🧪 Running Automated Tests**
+
+Run the complete test suite with `pytest`:
+
+```bash
+pytest tests/ -v
 ```
-Default Hospital Login Details:
-Username: apollo_mumbai
-Password: apollo123
+
+Verifies:
+- Database schema and hospital preloading
+- Biometric calculations (BMI, age, distance)
+- AI matching algorithm scoring rules
+- Authentication route guards
+
+---
+
+### **🔑 Demo Hospital Credentials**
+```
+Hospital Username: apollo_mumbai
+Hospital Password: apollo123
 ```
 
 ---
