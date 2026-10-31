@@ -3,7 +3,7 @@ import os
 from werkzeug.security import generate_password_hash
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(os.path.dirname(BASE_DIR), 'lifelink.db')
+DB_PATH = os.environ.get('LIFELINK_DB', os.path.join(BASE_DIR, 'lifelink.db'))
 
 
 def get_db():
