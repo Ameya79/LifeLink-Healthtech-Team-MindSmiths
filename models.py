@@ -48,9 +48,14 @@ def generate_unique_id(prefix, hospital_id):
 
 def calculate_age(dob_str):
     """Calculate age from date of birth"""
-    dob = datetime.strptime(dob_str, '%Y-%m-%d')
-    today = datetime.today()
-    return today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    if not dob_str or not isinstance(dob_str, str):
+        return 0
+    try:
+        dob = datetime.strptime(dob_str.strip(), '%Y-%m-%d')
+        today = datetime.today()
+        return today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    except (ValueError, TypeError):
+        return 0
 
 def calculate_bmi(weight_kg, height_cm):
     """Calculate BMI"""
