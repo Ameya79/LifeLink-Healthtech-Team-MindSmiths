@@ -26,12 +26,19 @@ from models import (
     calculate_age, calculate_bmi, calculate_distance, calculate_match_score
 )
 
-app = Flask(__name__)
-app.secret_key = 'lifelink_super_secret_key_2024_hackathon'
+# Load environment variables if available
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
-# Gemini AI configuration - Hardcoded
-GEMINI_API_KEY = 'AIzaSyCYI3a6AzaGwVj0-jglVY71DrWPN9OXYA0'
-GEMINI_MODEL = 'models/gemini-2.0-flash-lite'
+app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'lifelink_default_secret_key_2024')
+
+# Gemini AI configuration - Securely read from environment
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'models/gemini-2.0-flash-lite')
 GEMINI_API_URL = f'https://generativelanguage.googleapis.com/v1beta/{GEMINI_MODEL}:generateContent'
 
 # Initialize database on first run
